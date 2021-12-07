@@ -19,3 +19,18 @@ JavaScriptの読み込み方
 ・特定のViewでJavaScriptを呼び出したい時
 　いくつか方法があるが、一番分かりやすい方法は、viewファイルに直接scriptタグで埋め込んでしまうことである。
 　
+
+<CDNで読み込む>
+・CDNで読み込む場合はviewファイルにscriptタグを埋め込み、読み込む。
+
+　CDNで読み込む場合、どこで読み込むかということが重要になる。
+
+　Railsではapp/views/layouts/application.html.erbに記述されたものは全ページ共通のものとなる。
+　　 →app/views/layouts/application.html.erbの中でCDNを読み込めば全ページで、CDNで読み込んだソースコードが適用される。
+
+・読み込み順序に気をつける。
+　例）application.jsで、jQueryを使用してアラートを表示する記述がされているとき、
+　　　application.html.erbでCDNのjQueryを読み込む位置を、"javascript_include_tag"の上に記述するのが適切になる
+　
+　
+　
