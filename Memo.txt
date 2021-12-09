@@ -33,4 +33,25 @@ JavaScriptの読み込み方
 　　　application.html.erbでCDNのjQueryを読み込む位置を、"javascript_include_tag"の上に記述するのが適切になる
 　
 　
-　
+<gemで読み込む>
+・jQueryを読み込む場合には、
+　　Gemfileにgem "jquery-rails"を記述してbundle install
+　　application.jsに//= require jqueryを追記する
+
+　　→//= require jqueryを追記する箇所には注意が必要。
+　　
+　　～(app/assets/javascripts/application.js)～
+　　//= require jquery  ←//= require_tree .よりも上に記述する
+　　//= require rails-ujs
+　　//= require activestorage
+　　//= require turbolinks
+　　//= require_tree .
+　　
+　　・//= require_tree . は、アセットパイプラインを実行するための記述で、
+　　 「app/assets/javascript配下の全てのファイルを読み込む」という処理を行う。
+　　　
+　　　　→app/assets/javascript配下のファイルの中でjQueryが使用されていた場合、
+　　　　 //=require jqueryを//= require_tree .の下に記述するとjQuery自体が読み込まれる前に、jQueryを実行することになる。
+　　　　 すると→Uncaught ReferenceError: $ is not defined...　のようなエラーが発生する。
+　　　　 
+　　　　 なので、//= require_tree .よりも下に記述してはいけない。
